@@ -10,11 +10,10 @@ function App() {
   
   const [contacts, setContacts] = useState([]);
   const [init, setInit] = useState(false);
-
+  
   const addContactHandler = (contact) =>{
     setContacts([...contacts, {id: v4(), ...contact}]);
   }
-
 
 const removeContactHandler = (id) =>{
   const newContactList = contacts.filter((contact)=>{
@@ -23,8 +22,7 @@ const removeContactHandler = (id) =>{
   setContacts(newContactList)
 }
 
- 
-   useEffect(() => {
+useEffect(() => {
 
 if(!init) {
  const retriveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
@@ -32,15 +30,14 @@ if(!init) {
         setContacts(retriveContacts);
       }
       setInit(true)
-}
-   },[]);
+  }
+    },[init]);
 
-   useEffect(() => {
+useEffect(() => {
  if(init) {
    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts))
- }
-  
-   },[contacts]);
+   }
+  },[contacts]);
 
   return (
     <div className="ui container">
