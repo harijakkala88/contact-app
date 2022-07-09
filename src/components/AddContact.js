@@ -8,7 +8,7 @@ class AddContact extends React.Component{
         dob: ""
    };
       addContact = (e) => {
-          e.preventDefault();
+         // e.preventDefault();
           if(this.state.name ==="" || this.state.email ==="" || this.state.age ==="" || this.state.dob ==="")
           {
               alert("All the fields are required")

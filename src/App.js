@@ -4,6 +4,8 @@ import './App.css';
 import Header from './components/Header';
 import AddContact from './components/AddContact';
 import ContactList from './components/ContactList';
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
 
@@ -22,6 +24,7 @@ const removeContactHandler = (id) =>{
   setContacts(newContactList)
 }
 
+
 useEffect(() => {
 
 if(!init) {
@@ -31,7 +34,7 @@ if(!init) {
       }
       setInit(true)
   }
-    },[init]);
+    },[]);
 
 useEffect(() => {
  if(init) {
@@ -41,9 +44,17 @@ useEffect(() => {
 
   return (
     <div className="ui container">
+      <Router>
       <Header/>
-      <AddContact addContactHandler = {addContactHandler}/>
+      <Routes>
+       <Route path="/add" element={<AddContact addContactHandler = {addContactHandler}/>} />
+       <Route path="/" element={<ContactList contacts = {contacts} getContactId = {removeContactHandler}/>} />
+      {/* <AddContact addContactHandler = {addContactHandler}/>
       <ContactList contacts = {contacts} getContactId = {removeContactHandler}/>
+      */}
+      </Routes>
+      </Router>
+      
     </div>
   );
 }
