@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useEffect} from 'react';
 import { v4 } from 'uuid';
 import './App.css';
-import Header from './components/Header';
+// import Header from './components/Header';
 import AddContact from './components/AddContact';
 import ContactList from './components/ContactList';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
@@ -35,6 +36,7 @@ if(!init) {
       }
       setInit(true)
   }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
 useEffect(() => {

@@ -12,7 +12,7 @@ class AddContact extends React.Component{
 
       addContact = (e) => {
 
-          if(this.state.name ==="" || this.state.email ==="" || this.state.age ==="")
+          if(this.state.name ==="" || this.state.email ==="" || this.state.age ==="" || this.state.dob ==="")
           {
               alert("All the fields are required")
               return
@@ -26,7 +26,8 @@ class AddContact extends React.Component{
             const currentDate = (new Date()).getFullYear();
             const keyInDate = (new Date(ev.target.value)).getFullYear();
             if (keyInDate === currentDate) {
-                alert("Date Error")
+                this.setState({dob: ""})
+                alert("Selected year can not be current year")
                   return
             }
             this.setState({dob: ev.target.value})
