@@ -5,6 +5,7 @@ import Header from './components/Header';
 import AddContact from './components/AddContact';
 import ContactList from './components/ContactList';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import ContactDetails from './components/ContactDetails';
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
@@ -45,13 +46,32 @@ useEffect(() => {
   return (
     <div className="ui container">
       <Router>
-      <Header/>
+      {/* <Header/> */}
       <Routes>
+
        <Route path="/add" element={<AddContact addContactHandler = {addContactHandler}/>} />
-       <Route path="/" element={<ContactList contacts = {contacts} getContactId = {removeContactHandler}/>} />
-      {/* <AddContact addContactHandler = {addContactHandler}/>
-      <ContactList contacts = {contacts} getContactId = {removeContactHandler}/>
-      */}
+             
+       {/* <Route path="/add" 
+         render={(props) => (
+          <AddContact {...props} addContactHandler={addContactHandler}/>
+
+         )}
+        /> */}
+
+       {/* <Route path="/" exact
+              render={(props) => (
+              <ContactList
+             {...props}
+		          contacts={contacts}
+		          getContactId={removeContactHandler}
+              />
+         )} 
+         /> */}
+
+       <Route path="/" element ={<ContactList contacts = {contacts} getContactId = {removeContactHandler}/>} />
+      
+       <Route path="/contact/:id" element={<ContactDetails contacts = {contacts}  />}/>
+      
       </Routes>
       </Router>
       

@@ -1,23 +1,40 @@
 import React from "react";
+import {Link} from "react-router-dom";
+
 
 class AddContact extends React.Component{
    state = {
         name: "",
         email:"",
         age:"",
-        dob: ""
+        dob:""
    };
+
       addContact = (e) => {
-         // e.preventDefault();
-          if(this.state.name ==="" || this.state.email ==="" || this.state.age ==="" || this.state.dob ==="")
+
+          if(this.state.name ==="" || this.state.email ==="" || this.state.age ==="")
           {
               alert("All the fields are required")
               return
           }
           this.props.addContactHandler(this.state);
-          this.setState({name:"", email:"", age:"", dob:""});
-          
+          this.setState({name:"", email:"", age:""});          
       }
+      
+       onDOBChange = (ev) => {
+        if(ev.target.value){
+            const currentDate = (new Date()).getFullYear();
+            const keyInDate = (new Date(ev.target.value)).getFullYear();
+            if (keyInDate === currentDate) {
+                alert("Date Error")
+                  return
+            }
+            this.setState({dob: ev.target.value})
+        }
+       
+	
+	};
+
       render() {
           return (
               <div className="ui main">
@@ -37,9 +54,12 @@ class AddContact extends React.Component{
                       </div>
                       <div className="field">
                           <label>Date Of Birth</label>
-                          <input type="date" dob="dob" placeholder="Date of Birth" value= {this.state.dob} onChange={(e)=> this.setState({dob: e.target.value})} />
+                          <input  type="date" dob="dob" placeholder="Date of Birth"  onChange={(e)=> this.onDOBChange(e)} />
                       </div>
+                     
+                      <Link to="/">
                       <button className="ui button blue" onClick={this.addContact} >Add</button>
+                      </Link>
                 </form>
               </div>
           );

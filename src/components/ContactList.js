@@ -3,13 +3,11 @@ import ContactCard from "./ContactCard"
 import { Link } from "react-router-dom";
 
 const ContactList = (props) => {
-    console.log(props);
-
+    
     const deleteContactHandler = (id) => {
         props.getContactId(id);
     }
 
-     
  const renderContactList = props.contacts.map((contact) =>{
         return(
              <ContactCard contact={contact} 
@@ -18,12 +16,12 @@ const ContactList = (props) => {
         );
     });
     return (
-         <div class='main'>
+         <div className='main'>
 
              <h2>
-                 Contact ContactList
+                 ContactList
                  <Link to="/add">
-                     <button className="ui button blue left">Add Contact</button>
+                     <button className="ui button blue right"> Add Contact </button>
                  </Link>
                  
              </h2>
