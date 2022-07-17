@@ -7,6 +7,7 @@ import AddContact from './components/AddContact';
 import ContactList from './components/ContactList';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import ContactDetails from './components/ContactDetails';
+import { object } from 'yup';
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
@@ -14,6 +15,9 @@ function App() {
   
   const [contacts, setContacts] = useState([]);
   const [init, setInit] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
   
   const addContactHandler = (contact) =>{
     setContacts([...contacts, {id: v4(), ...contact}]);
@@ -26,6 +30,21 @@ const removeContactHandler = (id) =>{
   setContacts(newContactList)
 }
 
+const searchHandler = (tempSearch) =>{
+
+        setSearchTerm(tempSearch);
+};
+
+useEffect(() => {
+
+ if(searchTerm) {
+ 
+  setSearchResults(contacts.filter(c => c.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1 ))
+ }else{
+  setSearchResults([])
+ }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[searchTerm]);
 
 useEffect(() => {
 
@@ -53,24 +72,14 @@ useEffect(() => {
 
        <Route path="/add" element={<AddContact addContactHandler = {addContactHandler}/>} />
              
-       {/* <Route path="/add" 
-         render={(props) => (
-          <AddContact {...props} addContactHandler={addContactHandler}/>
-
-         )}
-        /> */}
-
-       {/* <Route path="/" exact
-              render={(props) => (
-              <ContactList
-             {...props}
-		          contacts={contacts}
-		          getContactId={removeContactHandler}
-              />
-         )} 
-         /> */}
-
-       <Route path="/" element ={<ContactList contacts = {contacts} getContactId = {removeContactHandler}/>} />
+       <Route path="/" 
+        element ={<ContactList 
+        contacts = {searchTerm.length < 1 ? contacts : searchResults} 
+        getContactId = {removeContactHandler}
+        term = {searchTerm}
+        searchKeyword = {searchHandler}
+        ></ContactList>} 
+        />
       
        <Route path="/contact/:id" element={<ContactDetails contacts = {contacts}  />}/>
       
