@@ -7,7 +7,6 @@ import AddContact from './components/AddContact';
 import ContactList from './components/ContactList';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import ContactDetails from './components/ContactDetails';
-import { object } from 'yup';
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
